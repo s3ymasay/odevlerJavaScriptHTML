@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Üyelik Başvurusu</title>
+</head>
+<body>
+    <h2>Üyelik Başvurusu</h2>
+    <p>Üyelik başvurusu için lütfen bütün alanları doldurun.</p>
+    <form id="uyelikFormu">
+        <label for="isim">İsim:</label>
+        <input type="text" id="isim" required>
+        <label for="soyisim">Soyisim:</label>
+        <input type="text" id="soyisim" required><br><br>
+        
+        <label for="adres">Adres:</label>
+        <input type="text" id="adres" required><br><br>
+        
+        <label for="il">İl:</label>
+        <input type="text" id="il" required>
+        <label for="postaKodu">Posta Kodu:</label>
+        <input type="text" id="postaKodu" required><br><br>
+        
+        <label for="email">E-posta:</label>
+        <input type="email" id="email" required>
+        <label for="evNumarasi">Ev Numarası:</label>
+        <input type="text" id="evNumarasi"><br><br>
+        
+        <label for="cepNumarasi">Cep Numarası:</label>
+        <input type="text" id="cepNumarasi" required>
+        <label for="isNumarasi">İş Numarası:</label>
+        <input type="text" id="isNumarasi"><br><br>
+        
+        <label for="websitesi">Websitesi:</label>
+        <input type="text" id="websitesi"><br><br>
+        
+        <label for="tarih">Tarih:</label>
+        <input type="date" id="tarih" required><br><br>
+        
+        <button type="button" onclick="kaydet()">Başvuruyu Kaydet</button>
+        <button type="button" onclick="kontrolEt()">Verileri Oku</button>
+    </form>
+    
+    <h3>Kaydedilen Veriler:</h3>
+    <p id="sonuc"></p>
+
+    <script>
+        function kontrolEt() {
+            let uyelikBilgisi = localStorage.getItem("uyelikBilgisi");
+            if (uyelikBilgisi) {
+                let uye = JSON.parse(uyelikBilgisi);
+                document.getElementById("isim").value = uye.isim;
+                document.getElementById("soyisim").value = uye.soyisim;
+                document.getElementById("adres").value = uye.adres;
+                document.getElementById("il").value = uye.il;
+                document.getElementById("postaKodu").value = uye.postaKodu;
+                document.getElementById("email").value = uye.email;
+                document.getElementById("evNumarasi").value = uye.evNumarasi;
+                document.getElementById("cepNumarasi").value = uye.cepNumarasi;
+                document.getElementById("isNumarasi").value = uye.isNumarasi;
+                document.getElementById("websitesi").value = uye.websitesi;
+                document.getElementById("tarih").value = uye.tarih;
+                document.getElementById("sonuc").textContent = `Başvuru başarıyla yüklendi.`;
+            } else {
+                document.getElementById("sonuc").textContent = "Kayıtlı veri bulunamadı.";
+            }
+        }
+
+        function kaydet() {
+            let uyelikBilgisi = {
+                isim: document.getElementById("isim").value,
+                soyisim: document.getElementById("soyisim").value,
+                adres: document.getElementById("adres").value,
+                il: document.getElementById("il").value,
+                postaKodu: document.getElementById("postaKodu").value,
+                email: document.getElementById("email").value,
+                evNumarasi: document.getElementById("evNumarasi").value,
+                cepNumarasi: document.getElementById("cepNumarasi").value,
+                isNumarasi: document.getElementById("isNumarasi").value,
+                websitesi: document.getElementById("websitesi").value,
+                tarih: document.getElementById("tarih").value
+            };
+            
+            localStorage.setItem("uyelikBilgisi", JSON.stringify(uyelikBilgisi));
+            document.getElementById("sonuc").style.color = "green";
+            document.getElementById("sonuc").textContent = "Bilgiler başarıyla kaydedildi!";
+        }
+    </script>
+</body>
+</html>
